@@ -1,0 +1,42 @@
+---
+interface Nutrition {
+  calories: number;
+  protein: number;
+  fat: number;
+  carbs: number;
+  fiber?: number;
+  sugar?: number;
+  sodium?: number;
+}
+
+interface Props {
+  nutrition: Nutrition;
+  servings: number;
+}
+
+const { nutrition, servings } = Astro.props;
+
+const rows = [
+  { label: 'Kalorien', value: `${nutrition.calories} kcal`, highlight: true },
+  { label: 'Eiweiß', value: `${nutrition.protein} g` },
+  { label: 'Fett', value: `${nutrition.fat} g` },
+  { label: 'Kohlenhydrate', value: `${nutrition.carbs} g` },
+  ...(nutrition.fiber ? [{ label: 'Ballaststoffe', value: `${nutrition.fiber} g` }] : []),
+  ...(nutrition.sugar ? [{ label: 'davon Zucker', value: `${nutrition.sugar} g` }] : []),
+  ...(nutrition.sodium ? [{ label: 'Natrium', value: `${nutrition.sodium} mg` }] : []),
+];
+---
+
+<section class="mb-8">
+  <h2 class="text-2xl font-bold text-gray-900 mb-4">Nährwerte</h2>
+  <p class="text-sm text-gray-500 mb-4">Pro Portion (von {servings})</p>
+
+  <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200">
+    {rows.map(row => (
+      <div class={`flex justify-between px-5 py-3 border-b border-gray-200 last:border-0 ${row.highlight ? 'bg-amber-50' : ''}`}>
+        <span class={`text-sm ${row.highlight ? 'font-bold text-amber-900' : 'text-gray-600'}`}>{row.label}</span>
+        <span class={`text-sm font-semibold ${row.highlight ? 'text-amber-700' : 'text-gray-800'}`}>{row.value}</span>
+      </div>
+    ))}
+  </div>
+</section>

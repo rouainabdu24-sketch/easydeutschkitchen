@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { AUTHOR } from '../lib/author';
+import { SITE_URL, SITE_NAME } from '../lib/utils';
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: AUTHOR.name,
+  url: `${SITE_URL}/ueber-uns/`,
+  sameAs: [...AUTHOR.sameAs],
+  worksFor: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+};
+---
+
+<BaseLayout
+  title="Über uns – Lena Bauer"
+  description={`Lerne Lena Bauer kennen, die Köchin hinter EasyDeutschKitchen. ${AUTHOR.shortBio}`}
+  canonicalURL={`${SITE_URL}/ueber-uns/`}
+  jsonLd={personJsonLd}
+>
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <Breadcrumbs crumbs={[{ label: 'Über uns' }]} />
+
+    <article class="prose prose-amber max-w-none">
+      <div class="flex flex-col sm:flex-row gap-8 items-start mb-10 not-prose">
+        <img
+          src={AUTHOR.avatar}
+          alt={`Foto von ${AUTHOR.name}`}
+          width="180"
+          height="180"
+          class="rounded-full w-36 h-36 object-cover bg-amber-100"
+          onerror="this.style.display='none'"
+        />
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 mb-1">{AUTHOR.name}</h1>
+          <p class="text-amber-700 font-medium mb-3">Gründerin & Chefköchin von EasyDeutschKitchen</p>
+          <p class="text-gray-600">{AUTHOR.shortBio}</p>
+        </div>
+      </div>
+
+      <h2>Meine Geschichte</h2>
+      <p>{AUTHOR.longBio}</p>
+
+      <h2>Warum EasyDeutschKitchen?</h2>
+      <p>
+        Ich habe festgestellt, dass viele traditionelle deutsche Rezepte in verstaubten Kochbüchern schlummern oder online so kompliziert beschrieben werden, dass man gar nicht erst anfangen möchte. Das wollte ich ändern. EasyDeutschKitchen ist mein Weg, die wunderbare Vielfalt der deutschen Küche – von der rustikalen bayerischen Brotzeit bis zum feinen Weihnachtsgebäck – für alle zugänglich zu machen.
+      </p>
+
+      <h2>Was du hier findest</h2>
+      <ul>
+        <li>Authentische Rezepte mit genauen Mengenangaben und Schritt-für-Schritt-Anleitungen</li>
+        <li>Tipps und Tricks, die nur erfahrene Köche kennen</li>
+        <li>Nährwertinformationen für jeden Rezept</li>
+        <li>Häufige Fragen beantwortet, damit nichts schief gehen kann</li>
+      </ul>
+
+      <h2>Kontakt</h2>
+      <p>
+        Hast du Fragen, Anregungen oder möchtest ein Rezept mit mir teilen? Ich freue mich immer über Nachrichten!
+        Schreib mir auf <a href={AUTHOR.sameAs[0]} target="_blank" rel="noopener">Pinterest</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>

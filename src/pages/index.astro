@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RecipeCard from '../components/ui/RecipeCard.astro';
+import NewsletterCTA from '../components/ui/NewsletterCTA.astro';
+import AdSlot from '../components/ui/AdSlot.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../lib/categories';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '../lib/utils';
+import { AUTHOR } from '../lib/author';
+
+const allRecipes = await getCollection('recipes', r => !r.data.draft);
+const featured = allRecipes.filter(r => r.data.featured).slice(0, 6);
+const featuredIds = new Set(featured.map(r => r.id));
+const latest = [...allRecipes]
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .filter(r => !featuredIds.has(r.id))
+  .slice(0, 6);
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  inLanguage: 'de-DE',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${SITE_URL}/suche/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: AUTHOR.name,
+  url: `${SITE_URL}/ueber-uns/`,
+  sameAs: [...AUTHOR.sameAs],
+};
+---
+
+<BaseLayout
+  title="EasyDeutschKitchen – Authentische Deutsche Rezepte"
+  description={SITE_DESCRIPTION}
+  canonicalURL={SITE_URL + '/'}
+  jsonLd={[websiteJsonLd, personJsonLd]}
+>
+  <!-- Hero Banner -->
+  <section class="bg-gradient-to-br from-amber-50 to-orange-50 py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-amber-900 mb-4">
+        Authentische Deutsche Küche
+      </h1>
+      <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+        Traditionelle Rezepte aus Deutschland – von der Oma-Küche bis zur modernen Interpretation. Einfach erklärt, perfekt nachgekocht.
+      </p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="/rezepte/" class="px-8 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+          Alle Rezepte
+        </a>
+        <a href="/suche/" class="px-8 py-3 bg-white text-amber-700 border border-amber-200 rounded-lg font-semibold hover:bg-amber-50 transition-colors">
+          Rezept suchen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <!-- Categories -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Kategorien</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+        {CATEGORIES.map(cat => (
+          <a
+            href={`/kategorie/${cat.slug}/`}
+            class="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-amber-200 hover:shadow-sm transition-all group"
+          >
+            <span class="text-3xl">{cat.emoji}</span>
+            <span class="text-xs font-semibold text-gray-700 group-hover:text-amber-700 text-center">{cat.label}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Featured Recipes -->
+    {featured.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Ausgewählte Rezepte</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featured.map(r => (
+            <RecipeCard
+              slug={r.id}
+              title={r.data.title}
+              description={r.data.description}
+              heroImage={r.data.heroImage}
+              heroImageAlt={r.data.heroImageAlt}
+              category={r.data.category}
+              prepTime={r.data.prepTime}
+              cookTime={r.data.cookTime}
+              servings={r.data.servings}
+              difficulty={r.data.difficulty}
+              pubDate={r.data.pubDate}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <AdSlot />
+
+    <!-- Latest Recipes -->
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Neueste Rezepte</h2>
+        <a href="/rezepte/" class="text-sm text-amber-700 font-medium hover:underline">Alle ansehen →</a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {latest.map(r => (
+          <RecipeCard
+            slug={r.id}
+            title={r.data.title}
+            description={r.data.description}
+            heroImage={r.data.heroImage}
+            heroImageAlt={r.data.heroImageAlt}
+            category={r.data.category}
+            prepTime={r.data.prepTime}
+            cookTime={r.data.cookTime}
+            servings={r.data.servings}
+            difficulty={r.data.difficulty}
+            pubDate={r.data.pubDate}
+          />
+        ))}
+      </div>
+    </section>
+
+    <NewsletterCTA />
+  </div>
+</BaseLayout>

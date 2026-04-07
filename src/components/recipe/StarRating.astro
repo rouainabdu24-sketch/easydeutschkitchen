@@ -1,0 +1,7 @@
+---
+// Forwards to shared component – kept for backward compatibility
+import StarRating from '../ui/StarRating.astro';
+interface Props { rating?: number; maxStars?: number; }
+const props = Astro.props;
+---
+<StarRating {...props} />

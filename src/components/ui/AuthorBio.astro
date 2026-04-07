@@ -1,0 +1,21 @@
+---
+import { AUTHOR } from '../../lib/author';
+---
+
+<aside class="flex gap-4 items-start p-5 bg-amber-50 rounded-2xl border border-amber-100 my-8">
+  <img
+    src={AUTHOR.avatar}
+    alt={`Foto von ${AUTHOR.name}`}
+    width="72"
+    height="72"
+    loading="lazy"
+    class="rounded-full w-16 h-16 object-cover shrink-0 bg-amber-200"
+    onerror="this.style.display='none'"
+  />
+  <div>
+    <p class="font-bold text-gray-900 text-sm">Über die Autorin</p>
+    <p class="text-amber-700 font-semibold">{AUTHOR.name}</p>
+    <p class="text-sm text-gray-600 mt-1 leading-relaxed">{AUTHOR.shortBio}</p>
+    <a href="/ueber-uns/" class="text-xs text-amber-700 hover:underline mt-1 inline-block">Mehr erfahren →</a>
+  </div>
+</aside>

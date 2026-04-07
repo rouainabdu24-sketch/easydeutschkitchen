@@ -1,0 +1,206 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import RecipeHero from '../../components/recipe/RecipeHero.astro';
+import IngredientsList from '../../components/recipe/IngredientsList.astro';
+import RecipeSteps from '../../components/recipe/RecipeSteps.astro';
+import NutritionCard from '../../components/recipe/NutritionCard.astro';
+import TableOfContents from '../../components/ui/TableOfContents.astro';
+import AuthorBio from '../../components/ui/AuthorBio.astro';
+import RelatedRecipes from '../../components/ui/RelatedRecipes.astro';
+import SocialShare from '../../components/ui/SocialShare.astro';
+import NewsletterCTA from '../../components/ui/NewsletterCTA.astro';
+import AdSlot from '../../components/ui/AdSlot.astro';
+import { AUTHOR } from '../../lib/author';
+import { SITE_URL } from '../../lib/utils';
+import { toISO8601Duration } from '../../lib/utils';
+import { getCategoryLabel } from '../../lib/categories';
+
+export async function getStaticPaths() {
+  const recipes = await getCollection('recipes', r => !r.data.draft);
+  return recipes.map(recipe => ({
+    params: { slug: recipe.id },
+    props: { recipe },
+  }));
+}
+
+const { recipe } = Astro.props;
+const { Content, headings } = await render(recipe);
+const d = recipe.data;
+
+const pageUrl = `${SITE_URL}/rezepte/${recipe.id}/`;
+const categoryLabel = getCategoryLabel(d.category);
+
+// Related recipes (same category, excluding current)
+const allRecipes = await getCollection('recipes', r => !r.data.draft && r.id !== recipe.id);
+const related = allRecipes
+  .filter(r => r.data.category === d.category)
+  .slice(0, 3);
+
+// --- JSON-LD Schemas ---
+const recipeJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: d.title,
+  description: d.description,
+  image: [d.heroImage.startsWith('http') ? d.heroImage : `${SITE_URL}${d.heroImage}`],
+  author: {
+    '@type': 'Person',
+    name: AUTHOR.name,
+    url: `${SITE_URL}/ueber-uns/`,
+  },
+  datePublished: d.pubDate.toISOString().split('T')[0],
+  ...(d.updatedDate ? { dateModified: d.updatedDate.toISOString().split('T')[0] } : {}),
+  prepTime: toISO8601Duration(d.prepTime),
+  cookTime: toISO8601Duration(d.cookTime),
+  totalTime: toISO8601Duration(d.prepTime + d.cookTime),
+  recipeYield: `${d.servings} Portionen`,
+  recipeCategory: categoryLabel,
+  recipeCuisine: 'German',
+  keywords: d.tags.join(', '),
+  recipeIngredient: d.ingredients.map(ing => {
+    const parts = [ing.amount ? String(ing.amount) : '', ing.unit ?? '', ing.name, ing.note ?? ''];
+    return parts.filter(Boolean).join(' ').trim();
+  }),
+  nutrition: {
+    '@type': 'NutritionInformation',
+    calories: `${d.nutrition.calories} calories`,
+    proteinContent: `${d.nutrition.protein}g`,
+    fatContent: `${d.nutrition.fat}g`,
+    carbohydrateContent: `${d.nutrition.carbs}g`,
+    ...(d.nutrition.fiber ? { fiberContent: `${d.nutrition.fiber}g` } : {}),
+  },
+};
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  image: d.heroImage.startsWith('http') ? d.heroImage : `${SITE_URL}${d.heroImage}`,
+  author: {
+    '@type': 'Person',
+    name: AUTHOR.name,
+    url: `${SITE_URL}/ueber-uns/`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'EasyDeutschKitchen',
+    url: SITE_URL,
+  },
+  datePublished: d.pubDate.toISOString().split('T')[0],
+  ...(d.updatedDate ? { dateModified: d.updatedDate.toISOString().split('T')[0] } : {}),
+  url: pageUrl,
+  inLanguage: 'de-DE',
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Rezepte', item: `${SITE_URL}/rezepte/` },
+    { '@type': 'ListItem', position: 3, name: d.title, item: pageUrl },
+  ],
+};
+
+const faqJsonLd = d.faq && d.faq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: d.faq.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+} : null;
+
+const jsonLd = [recipeJsonLd, articleJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  canonicalURL={pageUrl}
+  ogImage={d.heroImage}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-4xl mx-auto px-4 py-6">
+    <Breadcrumbs crumbs={[
+      { label: 'Rezepte', href: '/rezepte/' },
+      { label: categoryLabel, href: `/kategorie/${d.category}/` },
+      { label: d.title },
+    ]} />
+
+    <RecipeHero
+      title={d.title}
+      description={d.description}
+      heroImage={d.heroImage}
+      heroImageAlt={d.heroImageAlt}
+      category={d.category}
+      prepTime={d.prepTime}
+      cookTime={d.cookTime}
+      servings={d.servings}
+      difficulty={d.difficulty}
+      pubDate={d.pubDate}
+      updatedDate={d.updatedDate}
+    />
+
+    <TableOfContents headings={headings} />
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Main content -->
+      <div class="lg:col-span-2">
+        <IngredientsList ingredients={d.ingredients} servings={d.servings} />
+
+        {d.midImage && (
+          <div class="my-8 rounded-2xl overflow-hidden">
+            <img
+              src={d.midImage}
+              alt={d.midImageAlt ?? d.title}
+              width="800"
+              height="1200"
+              loading="lazy"
+              class="w-full object-cover"
+            />
+          </div>
+        )}
+
+        <RecipeSteps>
+          <Content />
+        </RecipeSteps>
+
+        <SocialShare title={d.title} url={pageUrl} />
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="no-print">
+        <NutritionCard nutrition={d.nutrition} servings={d.servings} />
+        <AdSlot />
+      </aside>
+    </div>
+
+    <!-- FAQ -->
+    {d.faq && d.faq.length > 0 && (
+      <section class="mt-10 mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Häufige Fragen</h2>
+        <div class="space-y-4">
+          {d.faq.map(item => (
+            <details class="border border-gray-200 rounded-xl overflow-hidden group">
+              <summary class="flex justify-between items-center px-5 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-amber-50 list-none">
+                {item.question}
+                <span class="text-amber-600 text-lg group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <AuthorBio />
+    <NewsletterCTA />
+    <RelatedRecipes recipes={related} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import SearchBar from '../components/search/SearchBar';
+import { SITE_URL } from '../lib/utils';
+---
+
+<BaseLayout
+  title="Rezepte suchen"
+  description="Suche in allen deutschen Rezepten auf EasyDeutschKitchen – nach Zutaten, Kategorien oder Rezeptnamen."
+  canonicalURL={`${SITE_URL}/suche/`}
+>
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <Breadcrumbs crumbs={[{ label: 'Suche' }]} />
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Rezept suchen</h1>
+    <p class="text-gray-500 mb-8">Tippe einen Rezeptnamen, eine Zutat oder eine Kategorie ein.</p>
+
+    <SearchBar client:load />
+  </div>
+</BaseLayout>

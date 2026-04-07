@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 300
+    },
+    "pubDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "hauptgerichte",
+        "suppen",
+        "backwaren",
+        "desserts",
+        "fruehstueck",
+        "beilagen",
+        "snacks"
+      ]
+    },
+    "tags": {
+      "minItems": 1,
+      "maxItems": 15,
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "heroImage": {
+      "type": "string"
+    },
+    "heroImageAlt": {
+      "type": "string"
+    },
+    "midImage": {
+      "type": "string"
+    },
+    "midImageAlt": {
+      "type": "string"
+    },
+    "prepTime": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "cookTime": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "servings": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "einfach",
+        "mittel",
+        "schwer"
+      ]
+    },
+    "ingredients": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "nutrition": {
+      "type": "object",
+      "properties": {
+        "calories": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "protein": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fat": {
+          "type": "number",
+          "minimum": 0
+        },
+        "carbs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fiber": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sugar": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sodium": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "calories",
+        "protein",
+        "fat",
+        "carbs"
+      ]
+    },
+    "faq": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "answer"
+        ]
+      }
+    },
+    "author": {
+      "default": "lena-bauer",
+      "type": "string"
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "draft": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "pubDate",
+    "category",
+    "tags",
+    "heroImage",
+    "heroImageAlt",
+    "prepTime",
+    "cookTime",
+    "servings",
+    "difficulty",
+    "ingredients",
+    "nutrition"
+  ]
+}

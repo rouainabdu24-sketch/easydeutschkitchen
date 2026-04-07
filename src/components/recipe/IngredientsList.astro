@@ -1,0 +1,48 @@
+---
+interface Ingredient {
+  name: string;
+  amount?: number;
+  unit?: string;
+  note?: string;
+}
+
+interface Props {
+  ingredients: Ingredient[];
+  servings: number;
+}
+
+const { ingredients, servings } = Astro.props;
+
+function formatAmount(amount?: number): string {
+  if (!amount) return '';
+  if (Number.isInteger(amount)) return String(amount);
+  return amount.toFixed(1).replace('.0', '');
+}
+---
+
+<section id="rezept" class="mb-8">
+  <h2 class="text-2xl font-bold text-gray-900 mb-4">Zutaten</h2>
+  <p class="text-sm text-gray-500 mb-4">Für {servings} Portionen</p>
+
+  <ul class="space-y-2">
+    {ingredients.map((ing, i) => (
+      <li class="flex items-start gap-3 py-2 border-b border-gray-100 last:border-0">
+        <input
+          type="checkbox"
+          id={`ing-${i}`}
+          class="mt-1 h-4 w-4 rounded border-gray-300 text-amber-600 accent-amber-600 shrink-0 cursor-pointer"
+          aria-label={`${formatAmount(ing.amount)} ${ing.unit ?? ''} ${ing.name}`.trim()}
+        />
+        <label for={`ing-${i}`} class="cursor-pointer leading-snug">
+          {(ing.amount || ing.unit) && (
+            <span class="font-semibold text-amber-700">
+              {formatAmount(ing.amount)}{ing.unit ? ` ${ing.unit}` : ''}
+            </span>
+          )}{' '}
+          <span class="text-gray-800">{ing.name}</span>
+          {ing.note && <span class="text-gray-500 text-sm">, {ing.note}</span>}
+        </label>
+      </li>
+    ))}
+  </ul>
+</section>

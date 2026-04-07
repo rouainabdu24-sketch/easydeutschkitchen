@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { SITE_URL, SITE_NAME } from '../lib/utils';
+
+const lastUpdated = '5 April 2025';
+---
+
+<BaseLayout
+  title="Terms of Service – EasyDeutschKitchen"
+  description="Read the Terms of Service for EasyDeutschKitchen.com. These terms govern your use of our German recipes blog and all associated content."
+  canonicalURL={`${SITE_URL}/terms/`}
+>
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <Breadcrumbs crumbs={[{ label: 'Terms of Service' }]} />
+
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold text-gray-900 mb-3">Terms of Service</h1>
+      <p class="text-sm text-gray-500">Last updated: <time datetime="2025-04-05">{lastUpdated}</time></p>
+      <div class="mt-4 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl text-sm text-amber-900">
+        By accessing or using EasyDeutschKitchen.com, you agree to be bound by these Terms of Service. Please read them carefully before using the site.
+      </div>
+    </div>
+
+    <div class="prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-6 prose-p:text-gray-700 prose-p:leading-relaxed prose-li:text-gray-700 prose-a:text-amber-700 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900">
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        Welcome to EasyDeutschKitchen.com ("the Website," "the Site," "we," "us"). These Terms of Service ("Terms") govern your access to and use of this website and all content, features, and services made available through it. By visiting, reading, or otherwise using this website, you confirm that you are at least 16 years of age and that you have read, understood, and agree to be bound by these Terms.
+      </p>
+      <p>
+        If you do not agree with any part of these Terms, please discontinue your use of the website immediately. Your continued use of the site following the posting of any changes to these Terms constitutes acceptance of those changes.
+      </p>
+
+      <h2>2. Description of the Service</h2>
+      <p>
+        EasyDeutschKitchen is a personal food blog providing German recipes, cooking tips, nutritional information, and related editorial content. The website is operated as a static publication and does not offer user accounts, purchasing, or transactional services. All content is provided for informational and entertainment purposes only.
+      </p>
+
+      <h2>3. Intellectual Property</h2>
+
+      <h3>3.1 Our Content</h3>
+      <p>
+        All original content on this website — including but not limited to written recipes, articles, photography, graphics, logos, and design — is the intellectual property of EasyDeutschKitchen and its creator, Lena Bauer, unless otherwise attributed. This content is protected by copyright law, and all rights are reserved.
+      </p>
+      <p>You may not:</p>
+      <ul>
+        <li>Copy, reproduce, republish, or redistribute our content without explicit written permission.</li>
+        <li>Scrape, harvest, or systematically download content from the website using automated tools.</li>
+        <li>Use our recipes, images, or text commercially without a licensing agreement.</li>
+        <li>Remove or alter copyright notices or attribution from any content.</li>
+      </ul>
+
+      <h3>3.2 Permitted Personal Use</h3>
+      <p>
+        You are welcome to save or print individual recipes for your own personal, non-commercial use. Sharing links to our pages on social media or in personal messages is encouraged. If you wish to reference our content on your own blog, please properly credit EasyDeutschKitchen with a link back to the original article.
+      </p>
+
+      <h3>3.3 User-Submitted Content</h3>
+      <p>
+        If you submit content to us (such as recipe suggestions, comments, or messages), you grant us a non-exclusive, royalty-free licence to use, edit, and publish that content in connection with our website. You confirm that you have the right to submit such content and that it does not infringe the rights of any third party.
+      </p>
+
+      <h2>4. Advertising and Third-Party Content</h2>
+      <p>
+        EasyDeutschKitchen is monetised through display advertising, including Google AdSense and potentially other premium advertising networks. Advertisements displayed on this site are provided by third-party ad networks and do not constitute endorsement of those products or services by EasyDeutschKitchen.
+      </p>
+      <p>
+        We are not responsible for the content, accuracy, or practices of advertisements or the websites of advertisers. Clicking on an advertisement may result in third-party cookies being placed on your device. Please refer to our <a href="/cookies/">Cookie Policy</a> for more information.
+      </p>
+
+      <h2>5. Affiliate Links</h2>
+      <p>
+        Some links on this website may be affiliate links — meaning we may earn a small commission if you click through and make a purchase, at no additional cost to you. We only recommend products and services that we genuinely believe in. All affiliate relationships are disclosed in our <a href="/disclaimer/">Disclaimer</a>.
+      </p>
+
+      <h2>6. Accuracy of Information</h2>
+      <p>
+        We make every reasonable effort to ensure that the recipes, nutritional information, and editorial content published on this site are accurate and up-to-date. However, we cannot guarantee the completeness or accuracy of all information at all times. Recipes are tested in home kitchen conditions; results may vary based on ingredient brands, equipment, altitude, and individual technique.
+      </p>
+      <p>
+        Nutritional information is provided as a general estimate and should not be relied upon for medical dietary decisions. For personalised nutritional advice, please consult a qualified dietitian or healthcare professional. See our full <a href="/disclaimer/">Disclaimer</a> for details.
+      </p>
+
+      <h2>7. Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by applicable law, EasyDeutschKitchen and its creator(s) shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages arising from your use of the website or from reliance on its content, including but not limited to:
+      </p>
+      <ul>
+        <li>Cooking injuries, foodborne illness, or allergic reactions resulting from following recipes on this site</li>
+        <li>Loss of data, revenue, or profits</li>
+        <li>Errors, omissions, or inaccuracies in content</li>
+        <li>Interruptions or unavailability of the website</li>
+        <li>Actions or content of third-party advertisers or linked websites</li>
+      </ul>
+      <p>
+        Your use of this website is entirely at your own risk.
+      </p>
+
+      <h2>8. Food Safety and Allergens</h2>
+      <p>
+        Recipes on this site may contain common allergens including wheat, dairy, eggs, nuts, and others. We strive to note key allergens within recipe content, but we cannot guarantee that all allergen information is complete or current. If you or someone in your household has a food allergy, always verify ingredients independently and take appropriate precautions. EasyDeutschKitchen accepts no responsibility for adverse reactions caused by allergens.
+      </p>
+
+      <h2>9. Links to External Websites</h2>
+      <p>
+        Our content may include links to third-party websites for reference, attribution, or convenience. These links do not imply our endorsement of those sites, their content, or their operators. We have no control over external websites and accept no responsibility for their availability, accuracy, or practices.
+      </p>
+
+      <h2>10. Availability and Modifications</h2>
+      <p>
+        We reserve the right to modify, suspend, or discontinue the website or any part of its content at any time without notice. We may also update these Terms at any time. The date of the most recent update is shown at the top of this page. Continued use of the website after any changes constitutes your acceptance of the revised Terms.
+      </p>
+
+      <h2>11. Governing Law</h2>
+      <p>
+        These Terms are governed by and construed in accordance with the laws of <strong>Germany</strong>. Any disputes arising from or relating to these Terms or your use of this website shall be subject to the exclusive jurisdiction of the courts of Germany, unless mandatory consumer protection laws in your country of residence grant you additional rights.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        If you have questions about these Terms of Service, please <a href="/contact/">contact us</a> or email us at <a href="mailto:legal@easydeutschkitchen.com">legal@easydeutschkitchen.com</a>.
+      </p>
+
+    </div>
+
+    <!-- Legal nav -->
+    <div class="mt-12 p-5 bg-gray-50 rounded-2xl border border-gray-200 text-sm text-gray-600">
+      <p class="font-semibold text-gray-800 mb-2">Legal Pages</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/privacy/" class="text-amber-700 hover:underline">Privacy Policy</a>
+        <span class="text-gray-300">|</span>
+        <a href="/terms/" class="text-amber-700 font-medium underline">Terms of Service</a>
+        <span class="text-gray-300">|</span>
+        <a href="/disclaimer/" class="text-amber-700 hover:underline">Disclaimer</a>
+        <span class="text-gray-300">|</span>
+        <a href="/cookies/" class="text-amber-700 hover:underline">Cookie Policy</a>
+        <span class="text-gray-300">|</span>
+        <a href="/contact/" class="text-amber-700 hover:underline">Contact</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

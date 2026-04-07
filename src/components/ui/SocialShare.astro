@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  url: string;
+}
+
+const { title, url } = Astro.props;
+const encoded = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+---
+
+<div class="flex items-center gap-3 my-6 no-print" aria-label="Rezept teilen">
+  <span class="text-sm font-semibold text-gray-700">Teilen:</span>
+
+  <a
+    href={`https://pinterest.com/pin/create/button/?url=${encoded}&description=${encodedTitle}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-medium hover:bg-red-700 transition-colors"
+    aria-label="Auf Pinterest teilen"
+  >
+    📌 Pinterest
+  </a>
+
+  <a
+    href={`https://www.facebook.com/sharer/sharer.php?u=${encoded}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-medium hover:bg-blue-700 transition-colors"
+    aria-label="Auf Facebook teilen"
+  >
+    Facebook
+  </a>
+
+  <a
+    href={`https://twitter.com/intent/tweet?url=${encoded}&text=${encodedTitle}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500 text-white text-xs font-medium hover:bg-sky-600 transition-colors"
+    aria-label="Auf Twitter/X teilen"
+  >
+    𝕏 Twitter
+  </a>
+</div>

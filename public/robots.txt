@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://easydeutschkitchen.com/sitemap-index.xml

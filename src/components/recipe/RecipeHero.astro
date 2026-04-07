@@ -1,0 +1,82 @@
+---
+import CategoryBadge from '../ui/CategoryBadge.astro';
+import StarRating from '../ui/StarRating.astro';
+import JumpToRecipe from './JumpToRecipe.astro';
+import PrintButton from './PrintButton.astro';
+import { formatDate } from '../../lib/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  heroImage: string;
+  heroImageAlt: string;
+  category: string;
+  prepTime: number;
+  cookTime: number;
+  servings: number;
+  difficulty: string;
+  pubDate: Date;
+  updatedDate?: Date;
+}
+
+const { title, description, heroImage, heroImageAlt, category, prepTime, cookTime, servings, difficulty, pubDate, updatedDate } = Astro.props;
+const totalTime = prepTime + cookTime;
+const difficultyLabel: Record<string, string> = { einfach: 'Einfach', mittel: 'Mittel', schwer: 'Schwer' };
+---
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-10">
+  <!-- Text side -->
+  <div>
+    <CategoryBadge category={category} />
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4 leading-tight">{title}</h1>
+    <p class="text-lg text-gray-600 mb-4">{description}</p>
+
+    <StarRating rating={5} />
+
+    <!-- Meta grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 mb-6">
+      <div class="bg-amber-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-amber-700">{prepTime}</div>
+        <div class="text-xs text-gray-500 mt-0.5">Min. Vorbereitung</div>
+      </div>
+      <div class="bg-amber-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-amber-700">{cookTime}</div>
+        <div class="text-xs text-gray-500 mt-0.5">Min. Kochen</div>
+      </div>
+      <div class="bg-amber-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-amber-700">{servings}</div>
+        <div class="text-xs text-gray-500 mt-0.5">Portionen</div>
+      </div>
+      <div class="bg-amber-50 rounded-xl p-3 text-center">
+        <div class="text-sm font-bold text-amber-700">{difficultyLabel[difficulty]}</div>
+        <div class="text-xs text-gray-500 mt-0.5">Schwierigkeit</div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <JumpToRecipe />
+      <PrintButton />
+    </div>
+
+    <p class="text-xs text-gray-400 mt-4">
+      Veröffentlicht: <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      {updatedDate && (
+        <> · Aktualisiert: <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></>
+      )}
+    </p>
+  </div>
+
+  <!-- Image side -->
+  <div class="rounded-2xl overflow-hidden aspect-[2/3] max-h-[500px] bg-amber-50 flex items-center justify-center">
+    <img
+      src={heroImage}
+      alt={heroImageAlt}
+      width="600"
+      height="900"
+      loading="eager"
+      decoding="async"
+      class="w-full h-full object-cover"
+      onerror="this.parentElement.innerHTML='<span class=\'text-6xl\'>🍽️</span>'"
+    />
+  </div>
+</div>

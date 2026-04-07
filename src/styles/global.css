@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #b45309;
+  --color-primary-dark: #92400e;
+  --color-primary-light: #fef3c7;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    font-size: 12pt;
+    color: #000;
+  }
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  .print-break-before {
+    break-before: page;
+  }
+}

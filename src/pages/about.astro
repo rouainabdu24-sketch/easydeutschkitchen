@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import NewsletterCTA from '../components/ui/NewsletterCTA.astro';
+import { AUTHOR } from '../lib/author';
+import { SITE_URL, SITE_NAME } from '../lib/utils';
+import { CATEGORIES } from '../lib/categories';
+import { getCollection } from 'astro:content';
+
+const allRecipes = await getCollection('recipes', r => !r.data.draft);
+const recipeCount = allRecipes.length;
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: AUTHOR.name,
+  url: `${SITE_URL}/about/`,
+  sameAs: [...AUTHOR.sameAs],
+  worksFor: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+};
+
+const values = [
+  {
+    icon: '🫶',
+    title: 'Authenticity First',
+    body: "Every recipe comes from a real place — grandmother's kitchen, a regional bakery, or a Sunday family meal. We never compromise flavour for convenience.",
+  },
+  {
+    icon: '📋',
+    title: 'Clear Instructions',
+    body: "Cooking should be joyful, not stressful. We write every step as if we're standing next to you in the kitchen, explaining exactly what to look for.",
+  },
+  {
+    icon: '🌍',
+    title: 'Accessible Ingredients',
+    body: 'German cooking is hearty and unpretentious. Most recipes on this site use ingredients available at any supermarket — no specialty imports required.',
+  },
+  {
+    icon: '🔍',
+    title: 'Tested and Honest',
+    body: "Every recipe is cooked in a real home kitchen, not a professional lab. If something didn't work on the first try, we tell you what we changed.",
+  },
+];
+---
+
+<BaseLayout
+  title="About EasyDeutschKitchen – Lena Bauer"
+  description="Meet Lena Bauer, the home cook and food writer behind EasyDeutschKitchen. Learn about our mission to bring authentic German recipes to kitchens around the world."
+  canonicalURL={`${SITE_URL}/about/`}
+  jsonLd={personJsonLd}
+>
+  <!-- Hero section -->
+  <section class="bg-gradient-to-br from-amber-800 to-amber-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-amber-300 font-semibold text-sm uppercase tracking-wider mb-3">The Story Behind the Blog</p>
+          <h1 class="text-4xl md:text-5xl font-bold mb-5 leading-tight">
+            German Recipes, Made for Every Kitchen
+          </h1>
+          <p class="text-amber-100 text-lg leading-relaxed mb-6">
+            EasyDeutschKitchen was born from a simple idea: that the best German food — the kind that warms you from the inside out — shouldn't be locked away in dusty cookbooks or intimidating restaurant menus. It belongs at your table.
+          </p>
+          <div class="flex gap-6">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-amber-300">{recipeCount}+</div>
+              <div class="text-xs text-amber-200 mt-1">Recipes</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-amber-300">{CATEGORIES.length}</div>
+              <div class="text-xs text-amber-200 mt-1">Categories</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-amber-300">100%</div>
+              <div class="text-xs text-amber-200 mt-1">Home Tested</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="relative">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden bg-amber-700 flex items-center justify-center">
+              <img
+                src={AUTHOR.avatar}
+                alt={`${AUTHOR.name} – Founder of EasyDeutschKitchen`}
+                width="320"
+                height="320"
+                class="w-full h-full object-cover"
+                onerror="this.parentElement.innerHTML='<span class=\'text-8xl\'>👩‍🍳</span>'"
+              />
+            </div>
+            <div class="absolute -bottom-4 -right-4 bg-white text-amber-800 rounded-2xl px-4 py-2 shadow-lg text-sm font-bold">
+              🥨 Founded 2025
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <Breadcrumbs crumbs={[{ label: 'About Us' }]} />
+  </div>
+
+  <!-- Author story -->
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-2 sticky top-24">
+        <div class="bg-amber-50 rounded-3xl p-6 border border-amber-100">
+          <img
+            src={AUTHOR.avatar}
+            alt={AUTHOR.name}
+            width="200"
+            height="200"
+            class="w-28 h-28 rounded-full object-cover mx-auto mb-4 bg-amber-200"
+            onerror="this.style.display='none'"
+          />
+          <h2 class="text-xl font-bold text-gray-900 text-center mb-1">{AUTHOR.name}</h2>
+          <p class="text-amber-700 text-sm text-center mb-4">Founder & Recipe Developer</p>
+          <p class="text-gray-600 text-sm leading-relaxed text-center">{AUTHOR.shortBio}</p>
+          <div class="mt-5 pt-5 border-t border-amber-200 space-y-2">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>📍</span><span>Munich, Germany</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>🍳</span><span>Home cook since childhood</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>📌</span>
+              <a href={AUTHOR.sameAs[0]} target="_blank" rel="noopener noreferrer" class="text-amber-700 hover:underline">Pinterest</a>
+            </div>
+          </div>
+          <a
+            href="/contact/"
+            class="mt-5 block w-full text-center px-4 py-2.5 bg-amber-600 text-white rounded-xl font-semibold text-sm hover:bg-amber-700 transition-colors"
+          >
+            Get in Touch
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main story -->
+      <div class="md:col-span-3 prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-p:text-gray-700 prose-p:leading-relaxed prose-li:text-gray-700 prose-a:text-amber-700 prose-a:no-underline hover:prose-a:underline">
+
+        <h2>My Story</h2>
+        <p>
+          I grew up in a family where meals were the centre of everything. My grandmother ran a small Gasthof in Upper Bavaria, and my earliest memories are of standing on a wooden step stool in her kitchen, watching her roll Spätzle dough or stir a pot of Sauerbraten that had been marinating for three days. The smells, the rhythms, the patience it all required — those things stayed with me.
+        </p>
+        <p>
+          Later, when I moved to my own apartment in Munich, I realised how many of those recipes lived only in my head, in scraps of handwritten notes, or in the memory of watching someone do it. I couldn't find them reliably online — not the real versions, the ones that take time and taste like something.
+        </p>
+        <p>
+          That frustration became EasyDeutschKitchen.
+        </p>
+
+        <h2>What This Blog Is (and Isn't)</h2>
+        <p>
+          This isn't a blog about fusion cuisine or "elevated" takes on German classics. It's about the food that has been cooked in German homes for generations — Kartoffelsuppe on a cold Tuesday, Lebkuchen in December, Sauerbraten for special occasions. The kind of food that feeds people properly.
+        </p>
+        <p>
+          I write every recipe as if I'm explaining it to a friend who has never made it before. That means no skipped steps, no assumed knowledge, and honest notes about what can go wrong and how to fix it.
+        </p>
+
+        <h2>How Recipes Are Developed</h2>
+        <p>
+          Every recipe on this site starts with research — regional traditions, old cookbooks, conversations with home cooks. Then it goes through at least two rounds of testing in my kitchen before it's published. I note what worked, what didn't, and what substitutions are possible.
+        </p>
+        <p>
+          Nutritional estimates are included for every recipe, calculated using standard nutritional databases. They are estimates and should be treated as such — cooking is not a laboratory, and your ingredients will vary from mine.
+        </p>
+
+        <h2>A Note on Authenticity</h2>
+        <p>
+          German food has enormous regional variation. A Sauerbraten in the Rhineland is different from one in Bavaria. I try to note regional origins where relevant, but ultimately these are my versions — home-tested and adapted for a modern kitchen with accessible ingredients. Perfection is always the enemy of a good dinner.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Values section -->
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">What We Stand For</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {values.map(v => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-sm transition-shadow">
+            <div class="text-4xl mb-4">{v.icon}</div>
+            <h3 class="font-bold text-gray-900 mb-2">{v.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories we cover -->
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">What You'll Find Here</h2>
+    <p class="text-gray-500 mb-8">Browse by category or explore everything we've published so far.</p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+      {CATEGORIES.map(cat => (
+        <a
+          href={`/kategorie/${cat.slug}/`}
+          class="flex flex-col items-center gap-2 p-4 bg-amber-50 rounded-2xl border border-amber-100 hover:border-amber-300 hover:shadow-sm transition-all group"
+        >
+          <span class="text-3xl">{cat.emoji}</span>
+          <span class="text-xs font-semibold text-gray-700 group-hover:text-amber-700 text-center">{cat.label}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-4 pb-16">
+    <NewsletterCTA />
+  </div>
+
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-gray-500 py-3">
+  <ol class="flex flex-wrap items-center gap-1" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="/" itemprop="item" class="hover:text-amber-700 transition-colors">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+
+    {crumbs.map((crumb, i) => (
+      <>
+        <li class="text-gray-300" aria-hidden="true">›</li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          {crumb.href ? (
+            <a href={crumb.href} itemprop="item" class="hover:text-amber-700 transition-colors">
+              <span itemprop="name">{crumb.label}</span>
+            </a>
+          ) : (
+            <span itemprop="name" class="text-gray-800 font-medium">{crumb.label}</span>
+          )}
+          <meta itemprop="position" content={String(i + 2)} />
+        </li>
+      </>
+    ))}
+  </ol>
+</nav>

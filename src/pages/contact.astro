@@ -1,0 +1,264 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { AUTHOR } from '../lib/author';
+import { SITE_URL } from '../lib/utils';
+
+const contactEmail = 'hello@easydeutschkitchen.com';
+const businessEmail = 'business@easydeutschkitchen.com';
+// TODO: Replace with your Formspree form ID → https://formspree.io
+const FORMSPREE_ID = 'YOUR_FORM_ID';
+
+const reasons = [
+  { icon: '🍳', title: 'Recipe Question', desc: "Something didn't turn out right? Ask away — no question is too basic." },
+  { icon: '💼', title: 'Business & Partnerships', desc: "Brand collaborations, sponsored content, or PR enquiries. Use our business email." },
+  { icon: '📸', title: 'Media & Press', desc: "Looking for a quote, interview, or recipe feature? We'd love to hear from you." },
+  { icon: '🔗', title: 'Affiliate Partnerships', desc: "Relevant kitchenware, food, or lifestyle brands are welcome to reach out." },
+];
+---
+
+<BaseLayout
+  title="Contact EasyDeutschKitchen"
+  description="Get in touch with EasyDeutschKitchen. Whether you have a recipe question, a business inquiry, or just want to say hello — we read every message."
+  canonicalURL={`${SITE_URL}/contact/`}
+>
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <Breadcrumbs crumbs={[{ label: 'Contact' }]} />
+  </div>
+
+  <!-- Header -->
+  <div class="bg-gradient-to-br from-amber-50 to-orange-50 py-12 px-4 mb-12">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl font-bold text-amber-900 mb-4">Get in Touch</h1>
+      <p class="text-lg text-gray-600 max-w-xl mx-auto">
+        Whether you have a question about a recipe, a collaboration proposal, or just want to share your cooking result — we genuinely love hearing from readers. We aim to reply within 2–3 business days.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+
+      <!-- Contact form (left/main) -->
+      <div class="lg:col-span-3">
+        <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Send a Message</h2>
+
+          <!--
+            STATIC FORM NOTE:
+            This is a static site with no backend. This form uses the mailto: method as a fallback.
+            For production, replace the form action with a free service like:
+            - Formspree (https://formspree.io) — action="https://formspree.io/f/YOUR_ID"
+            - Web3Forms (https://web3forms.com)
+            - Netlify Forms (if deploying on Netlify)
+          -->
+          <form
+            action={`https://formspree.io/f/${FORMSPREE_ID}`}
+            method="POST"
+            class="space-y-5"
+            aria-label="Contact form"
+          >
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="firstName" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                  First Name <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  autocomplete="given-name"
+                  placeholder="Emma"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-shadow"
+                />
+              </div>
+              <div>
+                <label for="lastName" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  autocomplete="family-name"
+                  placeholder="Schmidt"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-shadow"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                Email Address <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="you@example.com"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-shadow"
+              />
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                Subject <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-shadow bg-white"
+              >
+                <option value="" disabled selected>Select a topic…</option>
+                <option value="recipe-question">Recipe Question</option>
+                <option value="website-feedback">Website Feedback</option>
+                <option value="business-partnership">Business / Partnership</option>
+                <option value="press-media">Press / Media</option>
+                <option value="affiliate">Affiliate Enquiry</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                Message <span class="text-red-500">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={6}
+                placeholder="Hi Lena, I tried your Sauerbraten recipe and…"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-shadow resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Consent -->
+            <div class="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="consent"
+                name="consent"
+                required
+                class="mt-1 h-4 w-4 rounded border-gray-300 accent-amber-600 shrink-0"
+              />
+              <label for="consent" class="text-sm text-gray-600 leading-snug">
+                I agree that my submitted data is collected and stored as described in the <a href="/privacy/" class="text-amber-700 underline">Privacy Policy</a>. I understand my message will only be used to respond to my enquiry.
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3.5 bg-amber-600 text-white font-bold rounded-xl hover:bg-amber-700 transition-colors text-sm"
+            >
+              Send Message →
+            </button>
+
+            <p class="text-xs text-gray-400 text-center">
+              We typically respond within 2–3 business days. For urgent matters, email us directly.
+            </p>
+
+            <!-- Formspree success message (shown via URL param after redirect) -->
+            <div id="form-success" class="hidden p-4 bg-green-50 border border-green-200 rounded-xl text-sm text-green-800 text-center">
+              ✅ Message sent! We'll get back to you within 2–3 business days.
+            </div>
+          </form>
+
+          <script>
+            // Show success message if Formspree redirected back with ?success
+            if (window.location.search.includes('success')) {
+              document.getElementById('form-success')?.classList.remove('hidden');
+              document.querySelector('form')?.classList.add('hidden');
+            }
+          </script>
+        </div>
+      </div>
+
+      <!-- Right sidebar -->
+      <aside class="lg:col-span-2 space-y-6">
+
+        <!-- Author card -->
+        <div class="bg-amber-50 rounded-3xl p-6 border border-amber-100">
+          <img
+            src={AUTHOR.avatar}
+            alt={AUTHOR.name}
+            width="80"
+            height="80"
+            class="w-16 h-16 rounded-full object-cover bg-amber-200 mb-4"
+            onerror="this.style.display='none'"
+          />
+          <h3 class="font-bold text-gray-900 mb-1">{AUTHOR.name}</h3>
+          <p class="text-amber-700 text-xs mb-3">Founder, EasyDeutschKitchen</p>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            I personally read every message that comes in. Whether it's a recipe SOS or a collaboration idea, I look forward to hearing from you.
+          </p>
+        </div>
+
+        <!-- Direct emails -->
+        <div class="bg-white rounded-3xl p-6 border border-gray-100 space-y-4">
+          <h3 class="font-bold text-gray-900">Direct Email</h3>
+          <div>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">General Enquiries</p>
+            <a href={`mailto:${contactEmail}`} class="text-amber-700 font-medium text-sm hover:underline break-all">{contactEmail}</a>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Business & Partnerships</p>
+            <a href={`mailto:${businessEmail}`} class="text-amber-700 font-medium text-sm hover:underline break-all">{businessEmail}</a>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Data / Privacy Requests</p>
+            <a href="mailto:privacy@easydeutschkitchen.com" class="text-amber-700 font-medium text-sm hover:underline break-all">privacy@easydeutschkitchen.com</a>
+          </div>
+        </div>
+
+        <!-- Reasons to contact -->
+        <div class="bg-white rounded-3xl p-6 border border-gray-100">
+          <h3 class="font-bold text-gray-900 mb-4">How Can We Help?</h3>
+          <div class="space-y-4">
+            {reasons.map(r => (
+              <div class="flex gap-3">
+                <span class="text-xl shrink-0">{r.icon}</span>
+                <div>
+                  <p class="font-semibold text-gray-800 text-sm">{r.title}</p>
+                  <p class="text-xs text-gray-500 leading-relaxed">{r.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="bg-white rounded-3xl p-6 border border-gray-100">
+          <h3 class="font-bold text-gray-900 mb-4">Follow Along</h3>
+          <div class="space-y-3">
+            <a
+              href={AUTHOR.sameAs[0]}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 p-3 rounded-xl bg-red-50 hover:bg-red-100 transition-colors group"
+            >
+              <span class="text-2xl">📌</span>
+              <div>
+                <p class="font-semibold text-gray-900 text-sm group-hover:text-red-700">Pinterest</p>
+                <p class="text-xs text-gray-500">@lenabauer_kueche</p>
+              </div>
+            </a>
+          </div>
+          <p class="text-xs text-gray-400 mt-4 leading-relaxed">
+            Tag your cooking results with <strong>#EasyDeutschKitchen</strong> on social media — we love seeing your creations!
+          </p>
+        </div>
+
+        <!-- Response time note -->
+        <div class="bg-gray-50 rounded-2xl p-4 text-sm text-gray-600 border border-gray-200">
+          <p>⏱ <strong>Response time:</strong> We aim to reply to all messages within <strong>2–3 business days</strong>. During busy periods it may take slightly longer. We appreciate your patience.</p>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

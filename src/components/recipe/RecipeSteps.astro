@@ -1,0 +1,21 @@
+---
+interface Props {
+  class?: string;
+}
+---
+
+<section class="mb-8">
+  <h2 class="text-2xl font-bold text-gray-900 mb-6">Zubereitung</h2>
+  <div class="prose prose-amber max-w-none
+    prose-headings:font-bold prose-headings:text-gray-900
+    prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-3
+    prose-h3:text-lg prose-h3:mt-6
+    prose-p:text-gray-700 prose-p:leading-relaxed
+    prose-li:text-gray-700
+    prose-strong:text-amber-800
+    prose-a:text-amber-700 prose-a:no-underline hover:prose-a:underline
+    prose-ol:list-decimal prose-ul:list-disc
+  ">
+    <slot />
+  </div>
+</section>

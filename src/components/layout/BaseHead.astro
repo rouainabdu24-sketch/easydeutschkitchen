@@ -1,0 +1,57 @@
+---
+import { SITE_NAME, SITE_URL } from '../../lib/utils';
+import '../../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  canonicalURL = Astro.url.href,
+  ogImage = '/images/og-default.jpg',
+  ogType = 'website',
+  jsonLd,
+} = Astro.props;
+
+const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : null;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImageAbsolute} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content="de_DE" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageAbsolute} />
+
+<!-- JSON-LD Structured Data -->
+{schemas && (
+  <script type="application/ld+json" set:html={JSON.stringify(schemas.length === 1 ? schemas[0] : schemas)} />
+)}

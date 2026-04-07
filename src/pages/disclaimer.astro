@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { SITE_URL } from '../lib/utils';
+
+const lastUpdated = '5 April 2025';
+---
+
+<BaseLayout
+  title="Disclaimer – EasyDeutschKitchen"
+  description="Read the Disclaimer for EasyDeutschKitchen.com, covering affiliate links, nutritional information, food safety, and the accuracy of recipe content."
+  canonicalURL={`${SITE_URL}/disclaimer/`}
+>
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <Breadcrumbs crumbs={[{ label: 'Disclaimer' }]} />
+
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold text-gray-900 mb-3">Disclaimer</h1>
+      <p class="text-sm text-gray-500">Last updated: <time datetime="2025-04-05">{lastUpdated}</time></p>
+      <div class="mt-4 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl text-sm text-amber-900">
+        This page explains our position on affiliate links, advertising relationships, the accuracy of content, and limitations on the advice this blog provides. Please read this before relying on any content from EasyDeutschKitchen.
+      </div>
+    </div>
+
+    <div class="prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-6 prose-p:text-gray-700 prose-p:leading-relaxed prose-li:text-gray-700 prose-a:text-amber-700 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900">
+
+      <h2>1. General Disclaimer</h2>
+      <p>
+        The information provided on EasyDeutschKitchen.com is published in good faith and for general informational and entertainment purposes only. While we make every effort to keep content accurate, up-to-date, and helpful, we make no warranties or representations of any kind — express or implied — about the completeness, accuracy, reliability, suitability, or availability of any information, recipes, images, or related content on this website.
+      </p>
+      <p>
+        Any reliance you place on the information provided here is strictly at your own risk. EasyDeutschKitchen and its creator, Lena Bauer, accept no liability for any loss, damage, or harm — including but not limited to injury, illness, or financial loss — arising from your use of this website or from cooking or preparing recipes found here.
+      </p>
+
+      <h2>2. Affiliate Disclosure</h2>
+
+      <!-- Highlighted affiliate box -->
+      <div class="not-prose my-6 p-5 bg-blue-50 border border-blue-200 rounded-2xl">
+        <div class="flex gap-3 items-start">
+          <span class="text-2xl">🔗</span>
+          <div>
+            <p class="font-bold text-blue-900 mb-1">Affiliate Link Notice</p>
+            <p class="text-blue-800 text-sm leading-relaxed">
+              Some links on this website are affiliate links. This means we may earn a small commission if you click a link and make a purchase — at <strong>no additional cost to you</strong>. We only recommend products we have personally used or genuinely believe will be useful to our readers.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        EasyDeutschKitchen participates in affiliate marketing programmes with various partners, which may include (but are not limited to):
+      </p>
+      <ul>
+        <li>Amazon Associates and other online retailers</li>
+        <li>Kitchenware and cookware affiliate programmes</li>
+        <li>Food ingredient and specialty product shops</li>
+        <li>Recipe book and cookbook publishers</li>
+      </ul>
+      <p>
+        In compliance with the Federal Trade Commission (FTC) guidelines and the EU's requirements under the Unfair Commercial Practices Directive, all affiliate relationships are disclosed — either within the content itself or through this disclaimer. Our editorial decisions and recipe recommendations are made independently and are never driven by affiliate compensation.
+      </p>
+
+      <h2>3. Advertising Disclosure</h2>
+      <p>
+        This website displays advertising through Google AdSense and may in future include placements from other ad networks. Advertisements are clearly marked and are served by third-party platforms. We do not personally endorse advertised products or services unless explicitly stated elsewhere on the site.
+      </p>
+      <p>
+        Revenue generated through advertising helps us maintain the website, develop new recipes, and continue publishing free content. We are grateful for your understanding and support.
+      </p>
+
+      <h2>4. Sponsored Content</h2>
+      <p>
+        From time to time, EasyDeutschKitchen may publish sponsored posts or content created in partnership with a brand. Any such content will be clearly labelled as "Sponsored," "In Partnership With," or equivalent wording at the top of the post. Sponsored content is subject to the same quality and accuracy standards as all other content on this site. We retain full editorial control over sponsored articles.
+      </p>
+
+      <h2>5. Nutritional Information Disclaimer</h2>
+      <p>
+        Nutritional values and calorie counts provided alongside recipes are <strong>estimates only</strong>. They are calculated using third-party nutritional databases and may not accurately reflect your specific ingredients, brands, portion sizes, or preparation methods. Factors such as cooking time, peeling, and ingredient substitutions can significantly affect nutritional content.
+      </p>
+      <p>
+        The nutritional information on this site is provided for general reference purposes. It is <strong>not intended as medical, dietary, or clinical nutrition advice</strong>. If you are managing a health condition, following a medically supervised diet, or require precise nutritional data, please consult a registered dietitian or healthcare professional.
+      </p>
+
+      <h2>6. Food Safety Disclaimer</h2>
+      <p>
+        Recipes on this site include handling of raw meat, fish, eggs, and other perishable ingredients. While we follow safe cooking practices in our recipes, food safety outcomes depend on many factors including kitchen hygiene, storage conditions, and cooking equipment. We strongly recommend:
+      </p>
+      <ul>
+        <li>Following official food safety guidelines from relevant health authorities in your country</li>
+        <li>Cooking meat and fish to appropriate internal temperatures</li>
+        <li>Refrigerating perishable ingredients promptly</li>
+        <li>Never consuming food that appears spoiled or smells off, regardless of recipe instructions</li>
+      </ul>
+      <p>
+        EasyDeutschKitchen accepts no responsibility for illness, injury, or other harm resulting from the preparation, handling, or consumption of food based on recipes published on this site.
+      </p>
+
+      <h2>7. Allergen Warning</h2>
+      <p>
+        Many recipes on this website contain or may contain common allergens including: <strong>gluten, dairy, eggs, tree nuts, peanuts, sesame, soy, fish, and shellfish</strong>. While we attempt to note key allergens within recipe content, we cannot guarantee that all allergen information is complete, accurate, or free from cross-contamination risk.
+      </p>
+      <p>
+        If you or a family member has a food allergy or intolerance, please carefully check all ingredient labels and consult your doctor or allergy specialist before preparing any recipe. Do not rely solely on the information provided on this site for allergy-related decisions.
+      </p>
+
+      <h2>8. No Professional Advice</h2>
+      <p>
+        The content on EasyDeutschKitchen is created by a passionate home cook and is intended to inspire and guide recreational cooking. It does not constitute professional culinary, medical, nutritional, legal, or financial advice. We are not licensed professionals in any of these fields.
+      </p>
+      <p>
+        For professional advice in any of these areas, please consult a qualified professional.
+      </p>
+
+      <h2>9. External Links</h2>
+      <p>
+        This website may link to external sources such as food publications, ingredient suppliers, or news articles. These links are provided for informational purposes only. We have no control over, and accept no responsibility for, the content, privacy practices, or accuracy of information on external websites. The inclusion of a link does not imply our endorsement of that website or its contents.
+      </p>
+
+      <h2>10. Accuracy of Recipes</h2>
+      <p>
+        All recipes on EasyDeutschKitchen are developed and tested in a domestic home kitchen setting. Results may vary based on:
+      </p>
+      <ul>
+        <li>Variations between oven and stovetop models</li>
+        <li>Different ingredient brands or regional product formulations</li>
+        <li>Altitude and humidity affecting baking results</li>
+        <li>Individual interpretation of instructions or measurements</li>
+      </ul>
+      <p>
+        We welcome feedback if you notice an error in a recipe. Please <a href="/contact/">contact us</a> and we will review and correct it as quickly as possible.
+      </p>
+
+      <h2>11. Changes to This Disclaimer</h2>
+      <p>
+        We reserve the right to update this Disclaimer at any time. Changes are effective immediately upon posting. The date at the top of this page reflects the most recent revision.
+      </p>
+
+    </div>
+
+    <div class="mt-12 p-5 bg-gray-50 rounded-2xl border border-gray-200 text-sm text-gray-600">
+      <p class="font-semibold text-gray-800 mb-2">Legal Pages</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/privacy/" class="text-amber-700 hover:underline">Privacy Policy</a>
+        <span class="text-gray-300">|</span>
+        <a href="/terms/" class="text-amber-700 hover:underline">Terms of Service</a>
+        <span class="text-gray-300">|</span>
+        <a href="/disclaimer/" class="text-amber-700 font-medium underline">Disclaimer</a>
+        <span class="text-gray-300">|</span>
+        <a href="/cookies/" class="text-amber-700 hover:underline">Cookie Policy</a>
+        <span class="text-gray-300">|</span>
+        <a href="/contact/" class="text-amber-700 hover:underline">Contact</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

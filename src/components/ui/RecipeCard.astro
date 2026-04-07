@@ -1,0 +1,62 @@
+---
+import CategoryBadge from './CategoryBadge.astro';
+import StarRating from './StarRating.astro';
+import { formatDate } from '../../lib/utils';
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  heroImage: string;
+  heroImageAlt: string;
+  category: string;
+  prepTime: number;
+  cookTime: number;
+  servings: number;
+  difficulty: string;
+  pubDate: Date;
+}
+
+const { slug, title, description, heroImage, heroImageAlt, category, prepTime, cookTime, servings, difficulty, pubDate } = Astro.props;
+const totalTime = prepTime + cookTime;
+
+const difficultyLabel: Record<string, string> = {
+  einfach: 'Einfach',
+  mittel: 'Mittel',
+  schwer: 'Schwer',
+};
+---
+
+<article class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+  <a href={`/rezepte/${slug}/`} class="block">
+    <div class="overflow-hidden aspect-[2/3] bg-amber-50">
+      <img
+        src={heroImage}
+        alt={heroImageAlt}
+        width="400"
+        height="600"
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        onerror="this.style.display='none'"
+      />
+    </div>
+  </a>
+  <div class="p-4">
+    <div class="flex items-center justify-between mb-2">
+      <CategoryBadge category={category} />
+      <span class="text-xs text-gray-400">{difficultyLabel[difficulty]}</span>
+    </div>
+    <a href={`/rezepte/${slug}/`} class="block group-hover:text-amber-700 transition-colors">
+      <h2 class="font-bold text-gray-900 text-base leading-snug mb-2 line-clamp-2">{title}</h2>
+    </a>
+    <p class="text-sm text-gray-500 line-clamp-2 mb-3">{description}</p>
+    <div class="flex items-center gap-3 text-xs text-gray-400">
+      <span title="Gesamtzeit">⏱ {totalTime} Min.</span>
+      <span title="Portionen">👥 {servings} Port.</span>
+    </div>
+    <div class="mt-2">
+      <StarRating rating={5} />
+    </div>
+  </div>
+</article>

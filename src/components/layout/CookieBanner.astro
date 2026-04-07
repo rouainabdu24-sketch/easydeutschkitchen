@@ -1,0 +1,121 @@
+---
+// Cookie consent banner — GDPR compliant, zero dependencies
+// Stores consent in localStorage under key 'edk_cookie_consent'
+// Values: 'all' | 'essential'
+---
+
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Cookie Consent"
+  class="fixed bottom-0 left-0 right-0 z-[9999] p-4 hidden"
+>
+  <div class="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-2xl p-5 md:p-6">
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+
+      <!-- Icon + Text -->
+      <div class="flex items-start gap-3 flex-1 min-w-0">
+        <span class="text-2xl shrink-0">🍪</span>
+        <div>
+          <p class="font-bold text-gray-900 text-sm mb-1">Wir verwenden Cookies</p>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Diese Website verwendet Cookies für Analysen und personalisierte Werbung (Google Analytics, AdSense). Mit Klick auf „Alle akzeptieren" stimmst du der Nutzung aller Cookies zu. Mehr Infos in unserer
+            <a href="/cookies/" class="text-amber-700 underline hover:text-amber-800">Cookie-Richtlinie</a>
+            und
+            <a href="/privacy/" class="text-amber-700 underline hover:text-amber-800">Datenschutzerklärung</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+        <button
+          id="cookie-reject"
+          class="px-4 py-2.5 text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors whitespace-nowrap"
+        >
+          Nur notwendige
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-5 py-2.5 text-xs font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl transition-colors whitespace-nowrap"
+        >
+          Alle akzeptieren ✓
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'edk_cookie_consent';
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const rejectBtn = document.getElementById('cookie-reject');
+
+  function getConsent(): string | null {
+    try { return localStorage.getItem(CONSENT_KEY); } catch { return null; }
+  }
+
+  function setConsent(value: 'all' | 'essential') {
+    try { localStorage.setItem(CONSENT_KEY, value); } catch {}
+  }
+
+  function hideBanner() {
+    banner?.classList.add('hidden');
+  }
+
+  function showBanner() {
+    banner?.classList.remove('hidden');
+  }
+
+  function loadAnalytics() {
+    // Google Analytics — replace G-XXXXXXXXXX with your Measurement ID
+    // Uncomment when you have your GA4 ID:
+    /*
+    const script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+    script.async = true;
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(...args: any[]) { window.dataLayer.push(args); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+    */
+  }
+
+  function loadAds() {
+    // Google AdSense — uncomment after AdSense approval
+    /*
+    const script = document.createElement('script');
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    document.head.appendChild(script);
+    */
+  }
+
+  // On page load — check existing consent
+  const existing = getConsent();
+  if (!existing) {
+    // First visit — show banner after short delay
+    setTimeout(showBanner, 800);
+  } else if (existing === 'all') {
+    loadAnalytics();
+    loadAds();
+  }
+
+  // Accept all
+  acceptBtn?.addEventListener('click', () => {
+    setConsent('all');
+    hideBanner();
+    loadAnalytics();
+    loadAds();
+  });
+
+  // Essential only
+  rejectBtn?.addEventListener('click', () => {
+    setConsent('essential');
+    hideBanner();
+  });
+</script>
