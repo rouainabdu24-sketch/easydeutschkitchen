@@ -1,28 +1,20 @@
 ---
 interface Props {
-  slot?: string;
-  format?: 'auto' | 'rectangle' | 'leaderboard';
+  type?: 'inpage' | 'inimage';
   class?: string;
 }
 
-const { slot = 'YOUR_AD_SLOT_ID', format = 'auto', class: className = '' } = Astro.props;
+const { type = 'inpage', class: className = '' } = Astro.props;
 ---
 
-<!-- AdSense slot – replace data-ad-client and data-ad-slot with your IDs -->
-<div class={`ad-slot my-6 text-center ${className}`}>
-  <!-- Uncomment after AdSense approval:
-  <ins
-    class="adsbygoogle"
-    style="display:block"
-    data-ad-client="ca-pub-XXXXXXXXXX"
-    data-ad-slot={slot}
-    data-ad-format={format}
-    data-full-width-responsive="true"
-  ></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
-  -->
-  <!-- Placeholder until approved -->
-  <div class="border-2 border-dashed border-gray-200 rounded-lg p-8 text-gray-400 text-xs">
-    Werbung
+{type === 'inpage' && (
+  <div class={`hb-ad-inpage my-6 ${className}`}>
+    <div class="hb-ad-inner">
+      <div class="hbagency_cls hbagency_space_272592"></div>
+    </div>
   </div>
-</div>
+)}
+
+{type === 'inimage' && (
+  <div id='hbagency_space_272591' class={className}></div>
+)}
