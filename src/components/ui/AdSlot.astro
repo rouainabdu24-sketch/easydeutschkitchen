@@ -8,22 +8,10 @@ const { type = 'inpage', class: className = '' } = Astro.props;
 ---
 
 {type === 'inpage' && (
-  <div class={`my-6 ${className}`}>
-    <!-- HB Agency In Page -->
-    <div class="hb-ad-inpage">
-      <div class="hb-ad-inner">
-        <div class="hbagency_cls hbagency_space_272592"></div>
-      </div>
+  <div class={`hb-ad-inpage my-6 ${className}`}>
+    <div class="hb-ad-inner">
+      <div class="hbagency_cls hbagency_space_272592"></div>
     </div>
-    <!-- Google AdSense In Article -->
-    <ins class="adsbygoogle"
-      style="display:block; text-align:center;"
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client="ca-pub-9133910275298551"
-      data-ad-slot="auto">
-    </ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 )}
 
