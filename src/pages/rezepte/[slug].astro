@@ -210,7 +210,14 @@ const jsonLd = [recipeJsonLd, articleJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [
       </section>
     )}
 
+    <!-- HB Agency: In Page after FAQ -->
+    <AdSlot type="inpage" />
+
     <AuthorBio />
+
+    <!-- HB Agency: In Page before related recipes -->
+    <AdSlot type="inpage" />
+
     <NewsletterCTA />
     <RelatedRecipes recipes={related} />
   </div>
