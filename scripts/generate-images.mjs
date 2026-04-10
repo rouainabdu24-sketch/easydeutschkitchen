@@ -107,6 +107,18 @@ const IMAGES = [
     prompt: `Round Nuremberg Lebkuchen gingerbread cookies on a dark slate board, half dipped in dark chocolate glaze, half with white sugar icing, whole almonds on top, pine cones and cinnamon sticks as decoration, Christmas mood, ${FOOD_STYLE}`,
   },
 
+  // ── Pizzateig ────────────────────────────────────────────────────────────
+  {
+    filename: 'recipes/pizzateig-hero.jpg',
+    width: 1000, height: 1500,
+    prompt: `Fresh raw pizza dough ball on a rustic floured wooden board, light dusting of flour, small bowl of olive oil and a sprig of fresh basil beside it, soft natural side lighting, artisan bakery atmosphere, ${FOOD_STYLE}`,
+  },
+  {
+    filename: 'recipes/pizzateig-mid.jpg',
+    width: 1000, height: 1500,
+    prompt: `Pizza dough that has risen and doubled in size inside a glass bowl covered with a damp kitchen towel, visible airy bubbles in the dough texture, warm kitchen background, natural light, ${FOOD_STYLE}`,
+  },
+
   // ── OG Default (landscape) ──────────────────────────────────────────────
   {
     filename: 'og-default.jpg',
