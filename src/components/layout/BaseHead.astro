@@ -33,9 +33,17 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : null;
 <link rel="canonical" href={canonicalURL} />
 <link rel="alternate" hreflang="de" href={canonicalURL} />
 <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+<link rel="alternate" type="application/rss+xml" title="EasyDeutschKitchen RSS Feed" href="/feed" />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Preconnect to external origins -->
+<link rel="preconnect" href="https://www.googletagmanager.com" />
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+<link rel="preconnect" href="https://d3u598arehftfk.cloudfront.net" crossorigin />
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+<link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
 <!-- Open Graph -->
 <meta property="og:type" content={ogType} />
@@ -53,12 +61,6 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : null;
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageAbsolute} />
-
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9133910275298551" crossorigin="anonymous"></script>
-
-<!-- HB Agency Monetization -->
-<script src="https://d3u598arehftfk.cloudfront.net/prebid_hb_37538_33395.js" async></script>
 
 <!-- Google Tag Manager -->
 <script>
