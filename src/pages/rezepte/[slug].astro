@@ -179,24 +179,24 @@ const jsonLd = [recipeJsonLd, articleJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [
           <Content />
         </RecipeSteps>
 
+        <!-- HB Agency: inject mid-content ad before HB Agency scans the page -->
+        <script is:inline>
+          (function () {
+            var prose = document.querySelector('.prose');
+            if (!prose) return;
+            var headings = Array.from(prose.querySelectorAll('h2'));
+            if (headings.length < 2) return;
+            var mid = Math.floor(headings.length / 2);
+            var target = headings[mid];
+            var wrap = document.createElement('div');
+            wrap.className = 'hb-ad-inpage my-6';
+            wrap.innerHTML = '<div class="hb-ad-inner"><div class="hbagency_cls hbagency_space_272592"></div></div>';
+            target.parentNode.insertBefore(wrap, target);
+          })();
+        </script>
+
         <!-- HB Agency: In Page after steps -->
         <AdSlot type="inpage" />
-
-        <script>
-          // Inject mid-content ad after the middle h2 inside prose
-          document.addEventListener('DOMContentLoaded', () => {
-            const prose = document.querySelector('.prose');
-            if (!prose) return;
-            const headings = Array.from(prose.querySelectorAll('h2'));
-            if (headings.length < 2) return;
-            const midIndex = Math.floor(headings.length / 2);
-            const midHeading = headings[midIndex];
-            const ad = document.createElement('div');
-            ad.className = 'hb-ad-inpage my-6';
-            ad.innerHTML = '<div class="hb-ad-inner"><div class="hbagency_cls hbagency_space_272592"></div></div>';
-            midHeading.parentNode.insertBefore(ad, midHeading);
-          });
-        </script>
 
         <SocialShare title={d.title} url={pageUrl} />
       </div>
