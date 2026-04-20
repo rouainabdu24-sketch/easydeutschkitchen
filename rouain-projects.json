@@ -2,12 +2,12 @@
   {
     "id": "easydeutschkitchen-main",
     "user_id": "rouainabd@gmail.com",
-    "name": "EasyDeutschKitchen",
+    "name": "EasyDeutschkitchen",
     "emoji": "üç≥",
     "description": "German recipe blog",
     "niche": "Food & Recipes",
-    "country": "Germany",
-    "language": "German",
+    "country": "GerMany",
+    "language": "GerMan",
     "github_owner": "rouainabdu24-sketch",
     "github_repo": "easydeutschkitchen",
     "github_branch": "main",
@@ -16,6 +16,8 @@
     "ga4_property_id": "526310463",
     "sc_domain": "sc-domain:easydeutschkitchen.com",
     "inspiration_urls": [],
+    "pinterest_access_token": "pina_AMAXHVWXQ¡DNFMBIAGBAEWDZXNNC2XHIBQBIQCGBCIOUR2QOORTHY65BRQ4H2GFSRPBEBTE5FOA6TTBA5QXTEARGP¢¬GAUFQA",
+    "pinterest_default_board_id": "1102045040007543785",
     "created_at": "2026-04-20T00:00:00.000Z"
   }
 ]
