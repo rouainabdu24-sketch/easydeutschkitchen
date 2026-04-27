@@ -2,6 +2,7 @@ backend:
   name: github
   repo: rouainabdu24-sketch/easydeutschkitchen
   branch: main
+  auth_type: pkce
   app_id: Ov23liDaFEXBwZp7Opdb
 
 media_folder: public/images
