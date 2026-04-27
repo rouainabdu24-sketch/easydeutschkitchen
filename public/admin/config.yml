@@ -9,72 +9,72 @@ public_folder: /images
 
 collections:
   - name: recipes
-    label: Rezepte
+    label: Recipes
     folder: src/content/recipes
     create: true
     slug: "{{slug}}"
     extension: mdx
     format: frontmatter
     fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Beschreibung, name: description, widget: text }
-      - { label: Veröffentlichungsdatum, name: pubDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
-      - { label: Aktualisierungsdatum, name: updatedDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false, required: false }
-      - label: Kategorie
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Publish Date, name: pubDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { label: Updated Date, name: updatedDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false, required: false }
+      - label: Category
         name: category
         widget: select
         options:
-          - { label: Hauptgerichte, value: hauptgerichte }
-          - { label: Suppen, value: suppen }
-          - { label: Backwaren, value: backwaren }
+          - { label: Main Dishes, value: hauptgerichte }
+          - { label: Soups, value: suppen }
+          - { label: Baked Goods, value: backwaren }
           - { label: Desserts, value: desserts }
-          - { label: Frühstück, value: fruehstueck }
-          - { label: Beilagen, value: beilagen }
+          - { label: Breakfast, value: fruehstueck }
+          - { label: Side Dishes, value: beilagen }
           - { label: Snacks, value: snacks }
       - { label: Tags, name: tags, widget: list, min: 1, max: 15 }
-      - { label: Hauptbild URL, name: heroImage, widget: string }
-      - { label: Hauptbild Alt-Text, name: heroImageAlt, widget: string }
-      - { label: Mittelbild URL, name: midImage, widget: string, required: false }
-      - { label: Mittelbild Alt-Text, name: midImageAlt, widget: string, required: false }
-      - { label: Weiteres Bild URL, name: prompteImage, widget: string, required: false }
-      - { label: Vorbereitungszeit (Min), name: prepTime, widget: number, value_type: int, min: 1 }
-      - { label: Kochzeit (Min), name: cookTime, widget: number, value_type: int, min: 1 }
-      - { label: Portionen, name: servings, widget: number, value_type: int, min: 1 }
-      - label: Schwierigkeitsgrad
+      - { label: Hero Image URL, name: heroImage, widget: string }
+      - { label: Hero Image Alt Text, name: heroImageAlt, widget: string }
+      - { label: Mid Image URL, name: midImage, widget: string, required: false }
+      - { label: Mid Image Alt Text, name: midImageAlt, widget: string, required: false }
+      - { label: Extra Image URL, name: prompteImage, widget: string, required: false }
+      - { label: Prep Time (min), name: prepTime, widget: number, value_type: int, min: 1 }
+      - { label: Cook Time (min), name: cookTime, widget: number, value_type: int, min: 1 }
+      - { label: Servings, name: servings, widget: number, value_type: int, min: 1 }
+      - label: Difficulty
         name: difficulty
         widget: select
         options:
-          - { label: Einfach, value: einfach }
-          - { label: Mittel, value: mittel }
-          - { label: Schwer, value: schwer }
-      - label: Zutaten
+          - { label: Easy, value: einfach }
+          - { label: Medium, value: mittel }
+          - { label: Hard, value: schwer }
+      - label: Ingredients
         name: ingredients
         widget: list
         min: 1
         fields:
           - { label: Name, name: name, widget: string }
-          - { label: Menge, name: amount, widget: number, value_type: float, required: false }
-          - { label: Einheit, name: unit, widget: string, required: false }
-          - { label: Hinweis, name: note, widget: string, required: false }
-      - label: Nährwerte
+          - { label: Amount, name: amount, widget: number, value_type: float, required: false }
+          - { label: Unit, name: unit, widget: string, required: false }
+          - { label: Note, name: note, widget: string, required: false }
+      - label: Nutrition
         name: nutrition
         widget: object
         fields:
-          - { label: Kalorien (kcal), name: calories, widget: number, value_type: int, min: 0 }
+          - { label: Calories (kcal), name: calories, widget: number, value_type: int, min: 0 }
           - { label: Protein (g), name: protein, widget: number, value_type: float, min: 0 }
-          - { label: Fett (g), name: fat, widget: number, value_type: float, min: 0 }
-          - { label: Kohlenhydrate (g), name: carbs, widget: number, value_type: float, min: 0 }
-          - { label: Ballaststoffe (g), name: fiber, widget: number, value_type: float, min: 0, required: false }
-          - { label: Zucker (g), name: sugar, widget: number, value_type: float, min: 0, required: false }
-          - { label: Natrium (mg), name: sodium, widget: number, value_type: float, min: 0, required: false }
+          - { label: Fat (g), name: fat, widget: number, value_type: float, min: 0 }
+          - { label: Carbs (g), name: carbs, widget: number, value_type: float, min: 0 }
+          - { label: Fiber (g), name: fiber, widget: number, value_type: float, min: 0, required: false }
+          - { label: Sugar (g), name: sugar, widget: number, value_type: float, min: 0, required: false }
+          - { label: Sodium (mg), name: sodium, widget: number, value_type: float, min: 0, required: false }
       - label: FAQ
         name: faq
         widget: list
         required: false
         fields:
-          - { label: Frage, name: question, widget: string }
-          - { label: Antwort, name: answer, widget: text }
-      - { label: Autor, name: author, widget: string, default: lena-bauer }
-      - { label: Empfohlen, name: featured, widget: boolean, default: false }
-      - { label: Entwurf, name: draft, widget: boolean, default: false }
-      - { label: Inhalt, name: body, widget: markdown }
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
+      - { label: Author, name: author, widget: string, default: lena-bauer }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Draft, name: draft, widget: boolean, default: false }
+      - { label: Content, name: body, widget: markdown }
